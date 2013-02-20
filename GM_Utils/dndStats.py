@@ -7,20 +7,23 @@ import os
 
 import sqlite3
 
-conn = sqlite3.connect('dnd35.db')
-cur = conn.cursor()
 
-payload = ['Troll']
+def getMonster(name):
+    conn = sqlite3.connect('/home/tynan/Documents/PiPToKi/GM_Utils/dnd35.db')
+    cur = conn.cursor()
 
-cur.execute('SELECT * FROM monster WHERE name = ?', payload)
+    payload = [name.title()]
 
-cols = [x[0] for x in cur.description]
-rows = []
+    cur.execute('SELECT * FROM monster WHERE name = ?', payload)
 
-for row in cur.fetchone():
-	rows.append(row)
+    cols = [x[0] for x in cur.description]
+    rows = []
 
-dndObj = dict(zip(cols, rows))
+    for row in cur.fetchall():
+        rows.append(row)
+	
+    dndObj = dict(zip(cols, rows))
 
-
-print dndObj
+    conn.close()
+	
+    return dndObj
