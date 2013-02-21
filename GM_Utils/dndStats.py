@@ -5,11 +5,12 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 import os
 
+from local import *
+
 import sqlite3
 
-
 def getMonster(name):
-    conn = sqlite3.connect('/home/tynan/Documents/PiPToKi/GM_Utils/dnd35.db')
+    conn = sqlite3.connect(dbLocate)
     cur = conn.cursor()
 
     payload = [name.title()]
